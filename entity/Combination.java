@@ -3,25 +3,25 @@ package kataCombinaciones.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceWrapper {
-	
+public class Combination {
+
 	private int id;
 
 	private double averageAmmount;
 
 	private double totalAmmount;
-	
+
 	private List<Service> services = new ArrayList<>();
-	
+
 	public double getAverageAmmount() {
 		if (!services.isEmpty() && 0 < totalAmmount) {
-			averageAmmount = totalAmmount / (double)services.size();
+			averageAmmount = totalAmmount / (double) services.size();
 		}
 		return averageAmmount;
 	}
 
 	public void setTotalAmmount(double totalAmmount) {
-		
+
 		this.totalAmmount = totalAmmount;
 	}
 
@@ -31,10 +31,6 @@ public class ServiceWrapper {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public List<Service> getServices() {
@@ -47,5 +43,9 @@ public class ServiceWrapper {
 
 	public void setAverageAmmount(double averageAmmount) {
 		this.averageAmmount = averageAmmount;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
