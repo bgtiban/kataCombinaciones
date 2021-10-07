@@ -50,6 +50,13 @@ public class Lanzador {
 
 		// Salida esparada: S3,S4,S5
 		System.out.println(a3.searchMinimalAmount());
+		
+		System.out.println("----DEBERÏA SALIR");
+		System.out.println("[S2, S3]\r\n"
+				+ "[S2, S3]\r\n"
+				+ "[S3, S4]\r\n"
+				+ "[S3, S4, S5]");
+		
 
 	}
 

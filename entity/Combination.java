@@ -13,15 +13,24 @@ public class Combination implements Cloneable {
 
 	private List<Service> services = new ArrayList<>();
 
+	public Combination(int id) {
+		super();
+		this.id = id;
+	}
+
+	public Combination() {
+	}
+
 	@Override
 	public Combination clone() {
 		Combination clon;
 		try {
 			clon = (Combination) super.clone();
-			if (clon != null) {
-				clon.setServices(new ArrayList<>(services));
+			List<Service> clonServs = new ArrayList<>();
+			for(Service service : services) {
+				clonServs.add(service.clone());
 			}
-
+			clon.setServices(clonServs);
 		} catch (CloneNotSupportedException e) {
 			clon = null;
 			e.printStackTrace();

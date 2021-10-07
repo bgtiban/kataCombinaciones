@@ -2,8 +2,9 @@ package kataCombinaciones.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
-public class CombinationMap{
+public class CombinationMap implements Cloneable{
 
 	private Map<Integer, Combination> combinations = new HashMap<>();
 
@@ -12,10 +13,11 @@ public class CombinationMap{
 		CombinationMap clon;
 		try {
 			clon = (CombinationMap) super.clone();
-			if (clon != null) {
-				clon.setCombinations(new HashMap<>(combinations));
+			Map<Integer, Combination> clonMap = new HashMap<>();
+			for (Entry<Integer, Combination> kv : clonMap.entrySet()) {
+				clonMap.put(kv.getKey(), kv.getValue().clone());
 			}
-			clon = (CombinationMap) super.clone();
+			clon.setCombinations(clonMap);
 		} catch (CloneNotSupportedException e) {
 			clon = null;
 			e.printStackTrace();
