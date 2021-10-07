@@ -1,40 +1,39 @@
 package kataCombinaciones.assistant;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import kataCombinaciones.entity.Combination;
-import kataCombinaciones.entity.CombinationList;
+import kataCombinaciones.entity.CombinationMap;
 import kataCombinaciones.entity.Service;
 
 public class HiringAssistantImpl implements IHiringAssistant {
 
 	private List<Service> services = new ArrayList<>();
-	private int idCombination = 0;
+	private int idActualCombination = 0;
 
 	@Override
 	public List<String> searchMinimalAmount() {
-		Map<Integer, CombinationList> contenedorCombinaciones = new TreeMap<>();
+		Map<Integer, CombinationMap> contenedorCombinaciones = new TreeMap<>();
 		Combination lowestCombination = new Combination();
+		
 		for (int i = 0; i < services.size(); i++) {
-			CombinationList combinaciones = new CombinationList();
+			CombinationMap combinationsMap = new CombinationMap();
 
 			for (int x = i + 1; x < services.size(); x++) {
 				Combination combination = new Combination();
 				combination.setId(nextIdCombination());
-				if (combinaciones.getCombinations().isEmpty()) {
-					combination.getCombinations().add(services.get(i));
+				if (combinationsMap.getCombinations().isEmpty()) {
+					combination.getServices().add(services.get(i));
 				} else {
-					combination.getCombinations().addAll(combinaciones.getCombinations()
-							.get(combinaciones.getCombinations().size() - 1).getCombinations());
+					combination.getServices()
+							.addAll(combinationsMap.getCombinations().get(previusCombination()).getServices());
 				}
-				combination.getCombinations().add(services.get(x));
+				combination.getServices().add(services.get(x));
 				combination.setTotalAmmount(sumAmmount(combination));
-				combinaciones.getCombinations().add(combination);
+				combinationsMap.getCombinations().put(combination.getId(), combination);
 				if (lowestCombination.getId() == 0 && lowestCombination.getAverageAmmount() == 0) {
 					lowestCombination = combination.clone();
 				} else {
@@ -44,19 +43,23 @@ public class HiringAssistantImpl implements IHiringAssistant {
 				}
 			}
 
-			contenedorCombinaciones.put(services.get(i).id(), combinaciones);
+			contenedorCombinaciones.put(services.get(i).id(), combinationsMap);
 		}
 
-		return lowestCombination.getCombinations().stream().map(t -> t.name()).toList();
+		return lowestCombination.getServices().stream().map(t -> t.name()).toList();
+	}
+
+	private Object previusCombination() {
+		return idActualCombination - 1;
 	}
 
 	private double sumAmmount(Combination combination) {
-		return combination.getCombinations().stream().map(t -> t.amount()).toList().stream().reduce((double) 0,
+		return combination.getServices().stream().map(t -> t.amount()).toList().stream().reduce((double) 0,
 				(a, b) -> a + b);
 	}
 
 	public int nextIdCombination() {
-		return this.idCombination += 1;
+		return this.idActualCombination += 1;
 	};
 
 	@Override

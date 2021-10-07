@@ -11,7 +11,7 @@ public class Combination implements Cloneable {
 
 	private double averageAmmount;
 
-	private List<Service> combinations = new ArrayList<>();
+	private List<Service> services = new ArrayList<>();
 
 	@Override
 	public Combination clone() {
@@ -19,7 +19,7 @@ public class Combination implements Cloneable {
 		try {
 			clon = (Combination) super.clone();
 			if (clon != null) {
-				clon.setCombinations(new ArrayList<>(combinations));
+				clon.setServices(new ArrayList<>(services));
 			}
 
 		} catch (CloneNotSupportedException e) {
@@ -33,7 +33,7 @@ public class Combination implements Cloneable {
 	@Override
 	public String toString() {
 		return "Combination [id=" + id + ", totalAmmount=" + totalAmmount + ", averageAmmount=" + averageAmmount
-				+ ", combinations=" + combinations + "]";
+				+ ", combinations=" + services + "]";
 	}
 
 	public int getId() {
@@ -52,17 +52,17 @@ public class Combination implements Cloneable {
 		this.totalAmmount = totalAmmount;
 	}
 
-	public List<Service> getCombinations() {
-		return combinations;
+	public List<Service> getServices() {
+		return services;
 	}
 
-	public void setCombinations(List<Service> combinations) {
-		this.combinations = combinations;
+	public void setServices(List<Service> combinations) {
+		this.services = combinations;
 	}
 
 	public double getAverageAmmount() {
-		if (!combinations.isEmpty() && 0 < totalAmmount) {
-			averageAmmount = totalAmmount / (double) combinations.size();
+		if (!services.isEmpty() && 0 < totalAmmount) {
+			averageAmmount = totalAmmount / (double) services.size();
 			averageAmmount = Math.round(averageAmmount * 100.0) / 100.0;
 		}
 		return averageAmmount;
