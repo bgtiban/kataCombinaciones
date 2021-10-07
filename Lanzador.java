@@ -9,9 +9,9 @@ public class Lanzador {
 		
 		HiringAssistantImpl a = new HiringAssistantImpl();
 
-		a.add(new Service(1, "S2", 10.0));
+		a.add(new Service(1, "S1", 10.0));
 		a.add(new Service(2, "S2", 5.0));
-		a.add(new Service(3, "S2", 3.0));
+		a.add(new Service(3, "S3", 5.0));
 
 		// Salida esparada: S2, S3
 		System.out.println(a.searchMinimalAmount());
