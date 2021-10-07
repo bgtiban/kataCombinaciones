@@ -8,17 +8,6 @@ public class Lanzador {
 	public static void main(String[] args) {
 		HiringAssistantImpl a1 = new HiringAssistantImpl();
 
-		a1.add(new Service(1, "S1", 10.0));
-		a1.add(new Service(2, "S2", 5.0));
-		a1.add(new Service(3, "S3", 5.0));
-		
-		a1.searchMinimalAmount();
-
-	}
-
-	private static void extracted() {
-		HiringAssistantImpl a1 = new HiringAssistantImpl();
-
 		a1.add(new Service(1, "S1", 4.0));
 		a1.add(new Service(2, "S2", 2.0));
 		a1.add(new Service(3, "S3", 2.0));
@@ -51,6 +40,7 @@ public class Lanzador {
 
 		// Salida esparada: S3,S4,S5
 //		a2.searchMinimalAmount().stream().forEach(minAmount -> System.out.println(minAmount));
+
 	}
 
 }
