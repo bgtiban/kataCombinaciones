@@ -1,60 +1,61 @@
 package kataCombinaciones.assistant;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import kataCombinaciones.entity.CombinationList;
+import kataCombinaciones.entity.ContainerService;
 import kataCombinaciones.entity.Service;
-import kataCombinaciones.entity.Combination;
+import kataCombinaciones.entity.ServiceWrapper;
 
 public class HiringAssistantImpl implements IHiringAssistant {
 
 	private List<Service> listServices = new ArrayList<>();
-	private int actualId = 0;
 
 	@Override
 	public List<String> searchMinimalAmount() {
-		Map<Integer, Combination> combinations = new HashMap<>();
-		List<Combination> lowerCombinatios = new ArrayList<>();
+		Map<Integer, ContainerService> combinations = new TreeMap<>();
 
 		for (int i = 0; i < listServices.size(); i++) {
+			ContainerService containerServicesCombined = new ContainerService();
 
 			for (int x = i + 1; x < listServices.size(); x++) {
-				Combination combination = new Combination();
-				if (combinations.isEmpty()) {
-					combination.getServices().add(listServices.get(i));
+				ServiceWrapper servicesCombinedsWithSucessors = new ServiceWrapper();
+				if (containerServicesCombined.getServices().isEmpty()) {
+					servicesCombinedsWithSucessors.getServices().add(listServices.get(i));
 				} else {
-					combination.getServices().addAll(combinations.get(actualId).getServices());
+					servicesCombinedsWithSucessors.getServices().addAll(containerServicesCombined.getServices()
+							.get(containerServicesCombined.getServices().size() - 1).getServices());
 				}
-				combination.getServices().add(listServices.get(x));
-				combination.setTotalAmmount(sumAmmount(combination.getServices()));
-				combination.getAverageAmmount();
-				combinations.put(nextKey(), combination);
+				servicesCombinedsWithSucessors.getServices().add(listServices.get(x));
+				servicesCombinedsWithSucessors
+						.setTotalAmmount(sumAmmount(servicesCombinedsWithSucessors.getServices()));
+				servicesCombinedsWithSucessors.getAverageAmmount();
+				containerServicesCombined.getServices().add(servicesCombinedsWithSucessors);
 
 			}
+
+			combinations.put(listServices.get(i).id(), containerServicesCombined);
 		}
 		StringBuilder sb = new StringBuilder();
-		int Idlowest = 0;
-		for (Entry<Integer, Combination> combination : combinations.entrySet()) {
-			sb.append(" Combinacion " + combination.getKey() + ": ");
-			combination.getValue().getServices().stream().forEach(serv -> sb.append(serv.name() + ","));
-			sb.append(" Media: " + combination.getValue().getAverageAmmount());
-			sb.append("\n");
-			// lowest =
-
+		for (Entry<Integer, ContainerService> combination : combinations.entrySet()) {
+			sb.append("K= " + combination.getKey() + "\n");
+			for (ServiceWrapper service : combination.getValue().getServices()) {
+				sb.append(" Combinacion: ");
+				service.getServices().stream().forEach(serv -> sb.append(serv.name() + ","));
+				sb.append(" Media: " + service.getAverageAmmount());
+				sb.append("\n");
+			}
+			System.out.println(sb.toString());
 		}
-
-		System.out.println(sb.toString());
 
 		return null;
 	}
 
-	private String extractNamesServices(CombinationList v) {
+	private String extractNamesServices(ContainerService v) {
 
 		return null;
 	}
@@ -62,10 +63,6 @@ public class HiringAssistantImpl implements IHiringAssistant {
 	private double sumAmmount(List<Service> servicesCombinedsWithSucessors) {
 		return servicesCombinedsWithSucessors.stream().map(t -> t.amount()).toList().stream().reduce((double) 0,
 				(a, b) -> a + b);
-	}
-
-	private int nextKey() {
-		return actualId += 1;
 	}
 
 	@Override
