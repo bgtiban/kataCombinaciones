@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import kataCombinaciones.entity.Combination;
+import kataCombinaciones.entity.CombinationList;
 import kataCombinaciones.entity.Service;
 
 public class HiringAssistantImpl implements IHiringAssistant {
@@ -14,38 +16,44 @@ public class HiringAssistantImpl implements IHiringAssistant {
 
 	@Override
 	public List<String> searchMinimalAmount() {
-		Map<Integer, List<List<Service>>> contenedorCombinaciones = new TreeMap<>();
+		Map<Integer, CombinationList> contenedorCombinaciones = new TreeMap<>();
 
 		for (int i = 0; i < services.size(); i++) {
-			List<List<Service>> combinaciones = new ArrayList<>();
+			CombinationList combinaciones = new CombinationList();
 
 			for (int x = i + 1; x < services.size(); x++) {
-				List<Service> combinacion = new ArrayList<>();
-				if (combinaciones.isEmpty()) {
-					combinacion.add(services.get(i));
+				Combination combinacion = new Combination();
+				if (combinaciones.getCombinations().isEmpty()) {
+					combinacion.getCombinations().add(services.get(i));
 				} else {
-					combinacion.addAll(combinaciones.get(combinaciones.size() - 1));
+					combinacion.getCombinations().addAll(combinaciones.getCombinations().get(combinaciones.getCombinations().size() - 1).getCombinations());
 				}
-				combinacion.add(services.get(x));
-				combinaciones.add(combinacion);
+				combinacion.getCombinations().add(services.get(x));
+				combinacion.setTotalAmmount(sumAmmount(combinacion));
+				combinaciones.getCombinations().add(combinacion);
 			}
 			
 			contenedorCombinaciones.put(services.get(i).id(), combinaciones);
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		for (Entry<Integer, List<List<Service>>> combination : contenedorCombinaciones.entrySet()) {
-			sb.append("K= " + combination.getKey() + "\n");
-			for (List<Service> service : combination.getValue()) {
+		for (Entry<Integer, CombinationList> mapCombinationsList : contenedorCombinaciones.entrySet()) {
+			sb.append("K= " + mapCombinationsList.getKey() + "\n");
+			for (Combination combination : mapCombinationsList.getValue().getCombinations()) {
 				sb.append(" Combinacion: ");
-				service.stream().forEach(serv -> sb.append(serv.name() + ","));
-//				sb.append(" Media: " + service.getAverageAmmount());
+				combination.getCombinations().stream().forEach(serv -> sb.append(serv.name() + ","));
+				sb.append(" Media: " + combination.getAverageAmmount());
 				sb.append("\n");
 			}
 		}
 		
 		System.out.println(sb.toString());
 		return null;
+	}
+	
+	private double sumAmmount(Combination combination) {
+		return combination.getCombinations().stream().map(t -> t.amount()).toList().stream().reduce((double) 0,
+				(a, b) -> a + b);
 	}
 
 
