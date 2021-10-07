@@ -14,27 +14,27 @@ public class HiringAssistantImpl implements IHiringAssistant {
 
 	@Override
 	public List<String> searchMinimalAmount() {
-		Map<Integer, List<List<Service>>> combinations = new TreeMap<>();
+		Map<Integer, List<List<Service>>> contenedorCombinaciones = new TreeMap<>();
 
 		for (int i = 0; i < services.size(); i++) {
-			List<List<Service>> container = new ArrayList<>();
+			List<List<Service>> combinaciones = new ArrayList<>();
 
 			for (int x = i + 1; x < services.size(); x++) {
-				List<Service> subcontainer = new ArrayList<>();
-				if (container.isEmpty()) {
-					subcontainer.add(services.get(i));
+				List<Service> combinacion = new ArrayList<>();
+				if (combinaciones.isEmpty()) {
+					combinacion.add(services.get(i));
 				} else {
-					subcontainer.addAll(container.get(container.size() - 1));
+					combinacion.addAll(combinaciones.get(combinaciones.size() - 1));
 				}
-				subcontainer.add(services.get(x));
-				container.add(subcontainer);
+				combinacion.add(services.get(x));
+				combinaciones.add(combinacion);
 			}
 			
-			combinations.put(services.get(i).id(), container);
+			contenedorCombinaciones.put(services.get(i).id(), combinaciones);
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		for (Entry<Integer, List<List<Service>>> combination : combinations.entrySet()) {
+		for (Entry<Integer, List<List<Service>>> combination : contenedorCombinaciones.entrySet()) {
 			sb.append("K= " + combination.getKey() + "\n");
 			for (List<Service> service : combination.getValue()) {
 				sb.append(" Combinacion: ");
@@ -42,8 +42,9 @@ public class HiringAssistantImpl implements IHiringAssistant {
 //				sb.append(" Media: " + service.getAverageAmmount());
 				sb.append("\n");
 			}
-			System.out.println(sb.toString());
 		}
+		
+		System.out.println(sb.toString());
 		return null;
 	}
 
