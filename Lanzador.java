@@ -1,8 +1,5 @@
 package kataCombinaciones;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import kataCombinaciones.assistant.HiringAssistantImpl;
 import kataCombinaciones.entity.Service;
 
@@ -11,16 +8,14 @@ public class Lanzador {
 	public static void main(String[] args) {
 		HiringAssistantImpl a1 = new HiringAssistantImpl();
 
-		a1.add(new Service(1, "S1", 4.0));
-		a1.add(new Service(2, "S2", 2.0));
+		a1.add(new Service(1, "S1", 5.0));
+		a1.add(new Service(2, "S2", 6.0));
 		a1.add(new Service(3, "S3", 2.0));
-		a1.add(new Service(4, "S4", 5.0));
-		a1.add(new Service(5, "S5", 1.0));
-		a1.add(new Service(6, "S6", 5.0));
-		a1.add(new Service(7, "S7", 8.0));
+		a1.add(new Service(4, "S4", 3.0));
+		a1.add(new Service(5, "S5", 2.0));
 
-		// Salida esparada: S2, S3
-		a1.searchMinimalAmount();
+		// Salida esparada: S3,S4,S5
+		System.out.println(a1.searchMinimalAmount());
 
 	}
 
