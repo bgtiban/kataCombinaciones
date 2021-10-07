@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import kataCombinaciones.entity.Combination;
 import kataCombinaciones.entity.CombinationMap;
@@ -21,10 +21,10 @@ public class CombinationBuilder {
 		for (Entry<Integer, CombinationMap> combinationMap : contenedorCombinaciones.entrySet()) {
 			for (Entry<Integer, Combination> combination : combinationMap.getValue().getCombinations().entrySet()) {
 				if (lowestCombination.getId() == 0 && lowestCombination.getAverageAmmount() == 0) {
-					lowestCombination = combination.getValue().clone();
+					lowestCombination = combination.getValue();
 				} else {
 					if (combination.getValue().getAverageAmmount() <= lowestCombination.getAverageAmmount()) {
-						lowestCombination = combination.getValue().clone();
+						lowestCombination = combination.getValue();
 					}
 				}
 			}

@@ -1,12 +1,21 @@
 package kataCombinaciones;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import kataCombinaciones.assistant.HiringAssistantImpl;
 import kataCombinaciones.entity.Service;
 
 public class Lanzador {
 
 	public static void main(String[] args) {
-		
+		ejecutionOK();
+
+	}
+
+	private static void ejecutionOK() {
 		HiringAssistantImpl a = new HiringAssistantImpl();
 
 		a.add(new Service(1, "S1", 10.0));
@@ -56,8 +65,6 @@ public class Lanzador {
 				+ "[S2, S3]\r\n"
 				+ "[S3, S4]\r\n"
 				+ "[S3, S4, S5]");
-		
-
 	}
 
 	private static void extracted() {
