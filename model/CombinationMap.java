@@ -1,4 +1,4 @@
-package kataCombinaciones.entity;
+package kataCombinaciones.model;
 
 import java.util.HashMap;
 import java.util.Map;

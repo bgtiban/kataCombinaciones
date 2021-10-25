@@ -2,7 +2,7 @@ package kataCombinaciones.assistant;
 
 import java.util.List;
 
-import kataCombinaciones.entity.Service;
+import kataCombinaciones.model.Service;
 
 public interface IHiringAssistant {
 

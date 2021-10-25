@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import kataCombinaciones.assistant.HiringAssistantImpl;
-import kataCombinaciones.entity.Service;
+import kataCombinaciones.model.Service;
 
 public class Lanzador {
 

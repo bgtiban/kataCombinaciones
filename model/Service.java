@@ -1,4 +1,4 @@
-package kataCombinaciones.entity;
+package kataCombinaciones.model;
 
 public record Service (int id, String name, double amount) implements Cloneable{
 

@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
-import kataCombinaciones.entity.Combination;
-import kataCombinaciones.entity.CombinationMap;
-import kataCombinaciones.entity.Service;
+import kataCombinaciones.model.Combination;
+import kataCombinaciones.model.CombinationMap;
+import kataCombinaciones.model.Service;
+
+import java.util.TreeMap;
 
 public class CombinationBuilder {
 	

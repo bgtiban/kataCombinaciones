@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import kataCombinaciones.entity.Combination;
-import kataCombinaciones.entity.CombinationMap;
-import kataCombinaciones.entity.Service;
+import kataCombinaciones.model.Combination;
+import kataCombinaciones.model.CombinationMap;
+import kataCombinaciones.model.Service;
 
 public class HiringAssistantImpl implements IHiringAssistant {
 
